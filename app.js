@@ -3,6 +3,8 @@ const express = require('express');
 const app = express();
 const categoiresRouter = require('./routes/categories');
 const productsRouter = require('./routes/products');
+const coursesRouter = require('./routes/courses');
+const studentsRouter = require('./routes/students');
 
 // express.urlencoded({ extended: true }) is middleware that parses form data sent 
 // from HTML forms and puts it into req.body.
@@ -85,8 +87,14 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get('/', (req, res) => {
+  res.send('<h1>Welcome to the Express Server!</h1>');
+});
+
 app.use('/categories', categoiresRouter);
 app.use('/products', productsRouter);
+app.use('/courses', coursesRouter);
+app.use('/students', studentsRouter);
 
 app.use('/{*path}', (req, res) => {
   res.status(404).send('<h1>404 - Page Not Found</h1>');
