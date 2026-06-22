@@ -1,5 +1,21 @@
 const express = require('express');
 const path = require('path');
+const mysql = require('mysql2');
+
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'Pass@2026',
+    database: 'testdb'
+});
+
+connection.connect((err) => {
+    if (err) {
+        console.error('Error connecting to MySQL:', err.message);
+        return;
+    }
+    console.log('Connected to MySQL as id ' + connection.threadId);
+});
 
 //import routes
 const userRoutes = require('./routes/userRoutes');
