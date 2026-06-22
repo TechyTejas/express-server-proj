@@ -5,7 +5,7 @@ const getAllProducts = (req,res) => {
 }
 
 const addNewProduct = (req,res) => {
-    const productName = req.body.productName;
+    const productName = req.body.product;
     res.json({value: productName});
 }
 

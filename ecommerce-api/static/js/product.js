@@ -3,12 +3,12 @@ const submitHandler = (e) => {
     const product = e.target.product.value;
 
     const obj = {
-        productName: product
+        product: product  
     }
 
     axios.post('http://localhost:4000/products', obj)
     .then(response => {
-        console.log(" Product Added Successfully: "+response.data.value);
+        console.log("Product Added Successfully: " + response.data.value);
         e.target.product.value = "";
     })
     .catch(error => {
