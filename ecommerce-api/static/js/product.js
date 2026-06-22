@@ -2,17 +2,15 @@ const submitHandler = (e) => {
     e.preventDefault();
     const product = e.target.product.value;
 
-    const obj = {
-        product: product  
+    if (!product.trim()) {
+        console.warn('Validation Error: Product name cannot be empty.');
+        return;
     }
 
-    axios.post('http://localhost:4000/products', obj)
+    axios.post('http://localhost:4000/products', { product })
     .then(response => {
         console.log("Product Added Successfully: " + response.data.value);
         e.target.product.value = "";
     })
-    .catch(error => {
-        console.error('Error:', error);
-        e.target.product.value = "";
-    });
+    .catch(error => handleError(error, e.target));
 }
