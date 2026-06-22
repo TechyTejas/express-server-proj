@@ -5,7 +5,8 @@ const getAllProducts = (req,res) => {
 }
 
 const addNewProduct = (req,res) => {
-    res.send("Adding a new product")
+    const productName = req.body.productName;
+    res.json({value: productName});
 }
 
 const getProductByID = (req,res) => {

@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 
 //import routes
 const userRoutes = require('./routes/userRoutes');
@@ -9,6 +10,7 @@ const app = express();
 const port = 4000;
 
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 
 //use routes
