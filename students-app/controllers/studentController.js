@@ -55,8 +55,28 @@ const deleteStudent = (req, res) => {
     })
 }
 
+const getStudents = (req, res) => {
+    const getQuery = `SELECT * FROM Students`;
+    db.execute(getQuery,(err, result) => {
+        if(err){
+            console.log(err.message);
+            res.status(500).send("Error fetching students");
+            db.end();
+            return;
+        }
+        if(result.length === 0){
+            res.status(404).send("No students found");
+            db.end();
+            return;
+        }
+        console.log("Students fetched successfully");
+        res.status(200).send(result);
+    });
+}
+
 module.exports = {
     addStudent,
     updateStudent,
-    deleteStudent
+    deleteStudent,
+    getStudents
 }
