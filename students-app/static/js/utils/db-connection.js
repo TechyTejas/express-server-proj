@@ -20,7 +20,23 @@ const connection = mysql.createConnection({
       name VARCHAR(20),
       email VARCHAR(20)
       )`
-  
+    
+    const createUsersTableQuery = `
+     create table IF NOT EXISTS Users(
+     id INT AUTO_INCREMENT PRIMARY KEY,
+     name VARCHAR(20),
+     email VARCHAR(20)
+     )`
+    
+    const createBusTableQuery = `
+     create table IF NOT EXISTS Buses(
+     id INT AUTO_INCREMENT PRIMARY KEY,
+     name varchar(20),
+     busNo varchar(20) UNIQUE NOT NULL,
+     totalSeats INT,
+     availableSeats INT
+     )`
+
     // const createBusTableQuery = `
     // create table Bus(
     //   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -41,7 +57,7 @@ const connection = mysql.createConnection({
     //   payent_status VARCHAR(20)
     //   )`
   
-    connection.execute(createTableQuery, (err, result) => {
+    connection.execute(createBusTableQuery, (err, result) => {
       if (err) {
         console.error("Error creating table:", err.message);
         connection.end();
