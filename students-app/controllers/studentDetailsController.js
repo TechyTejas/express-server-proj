@@ -1,38 +1,68 @@
-const db = require('../static/js/utils/db-connection');
 
-const addStudent = (req, res) => {
-    const {name, email, age} = req.body;
-    const insertQuery = 'INSERT INTO StudentDetails (name, email, age) VALUES (?, ?, ?)';
-    db.execute(insertQuery, [name, email, age], (err, results) => {
-        if(err){
-            console.log(err.message);
-            res.status(500).send("Error adding student");
-            db.end();
-            return;
-        }
-        console.log("Student added successfully");
+const studentDetails = require('../models/student-details');
+const addStudent = async (req, res) => {
+    try {
+        const {name, email, age} = req.body;
+        const student = await studentDetails.create({
+            name : name, 
+            email : email, 
+            age : age, 
+        });
+        console.log(`Student is created with name ${name}`)
         res.status(200).send(`Student ${name} added successfully`);
-    })
+    } catch (err){
+        console.log(err.message);
+        res.status(500).send("Error adding student");
+        return;
+    }
+    // const {name, email, age} = req.body;
+    // const insertQuery = 'INSERT INTO StudentDetails (name, email, age) VALUES (?, ?, ?)';
+    // db.execute(insertQuery, [name, email, age], (err, results) => {
+    //     if(err){
+    //         console.log(err.message);
+    //         res.status(500).send("Error adding student");
+    //         db.end();
+    //         return;
+    //     }
+    //     console.log("Student added successfully");
+    //     res.status(200).send(`Student ${name} added successfully`);
+    // })
 }
 
-const updateStudent = (req, res) => {
-    const {id, name, email, age} = req.body;
-    const updateQuery = 'UPDATE StudentDetails SET name = ?, email = ?, age = ? WHERE id = ?';
-    db.execute(updateQuery, [name, email, age, id], (err, results) => {
-        if(err){
-            console.log(err.message);
-            res.status(500).send("Error updating student");
-            db.end();
-            return;
-        }
-        if(results.affectedRows === 0){
-            res.status(404).send(`Student not found by id ${id}`);
-            db.end();
-            return;
-        }
-        console.log("Student updated successfully");
+const updateStudent = async (req, res) => {
+    try {
+        const {id, name, email, age} = req.body;
+        const student = await studentDetails.update(
+        {
+            name, email, age 
+        },
+        {
+            where : {id : parseInt(id)}
+        });
+        console.log(`Student is updated with name ${name}`)
         res.status(200).send(`Student ${name} updated successfully`);
-    })
+    } catch (err){
+        console.log(err.message);
+        res.status(500).send("Error updating student");
+        return;
+    }
+    // const {id, name, email, age} = req.body;
+    // const updateQuery = 'UPDATE StudentDetails SET name = ?, email = ?, age = ? WHERE id = ?';
+    // db.execute(updateQuery, [name, email, age, id], (err, results) => {
+    //     if(err){
+    //         console.log(err.message);
+    //         res.status(500).send("Error updating student");
+    //         db.end();
+    //         return;
+    //     }
+    //     if(results.affectedRows === 0){
+    //         res.status(404).send(`Student not found by id ${id}`);
+    //         db.end();
+    //         return;
+    //     }
+    //     console.log("Student updated successfully");
+    //     res.status(200).send(`Student ${name} updated successfully`);
+    // })
 }
 
 const deleteStudent = (req, res) => {
