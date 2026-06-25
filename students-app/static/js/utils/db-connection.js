@@ -59,13 +59,6 @@ module.exports = sequelize;
 //     email VARCHAR(20) UNIQUE NOT NULL,
 //     age INT NOT NULL)`
 
-//     // const createBusTableQuery = `
-//     // create table Bus(
-//     //   id INT AUTO_INCREMENT PRIMARY KEY,
-//     //   bus_number INT,
-//     //   total_seats INT,
-//     //   available_seats INT
-//     //   )`
 //     // const createBookingTableQuery = `
 //     // create table Booking(
 //     //   id INT AUTO_INCREMENT PRIMARY KEY,
