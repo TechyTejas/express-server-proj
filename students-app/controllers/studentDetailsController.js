@@ -65,49 +65,87 @@ const updateStudent = async (req, res) => {
     // })
 }
 
-const deleteStudent = (req, res) => {
-    const {id} = req.body;
-    const deleteQuery = 'DELETE FROM StudentDetails WHERE id = ?';
-    db.execute(deleteQuery, [id], (err, results) => {
-        if(err){
-            console.log(err.message);
-            res.status(500).send("Error deleting student");
-            db.end();
-            return;
-        }
-        if(results.affectedRows === 0){
-            res.status(404).send("Student not found");
-            db.end();
-            return;
-        }
-        if(results.filter(result => result.id === id).length === 0){
-            res.status(404).send("Student not found by id ", id);
-            db.end();
-            return;
-        }
-        console.log("Student deleted successfully");
+const deleteStudent = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const student = await studentDetails.destroy({
+            where : {id : parseInt(id)}
+        });
+        console.log(`Student is deleted with id ${id}`)
         res.status(200).send(`Student ${id} deleted successfully`);
-    })
+    } catch (err){
+        console.log(err.message);
+        res.status(500).send("Error deleting student");
+        return;
+    }
+    
+    // const deleteQuery = 'DELETE FROM StudentDetails WHERE id = ?';
+    // db.execute(deleteQuery, [id], (err, results) => {
+    //     if(err){
+    //         console.log(err.message);
+    //         res.status(500).send("Error deleting student");
+    //         db.end();
+    //         return;
+    //     }
+    //     if(results.affectedRows === 0){
+    //         res.status(404).send("Student not found");
+    //         db.end();
+    //         return;
+    //     }
+    //     if(results.filter(result => result.id === id).length === 0){
+    //         res.status(404).send("Student not found by id ", id);
+    //         db.end();
+    //         return;
+    //     }
+    //     console.log("Student deleted successfully");
+    //     res.status(200).send(`Student ${id} deleted successfully`);
+    // })
 }
 
-const getStudents = (req, res) => {
-    const id = req.params.id;
-    const getQuery = 'SELECT * FROM StudentDetails WHERE id = ?';
-    const getQueryAll = 'SELECT * FROM StudentDetails';
+const getStudents = async (req, res) => {
+    try {
+        const id = req.params.id;
 
-    db.execute(id ? getQuery : getQueryAll, id ? [parseInt(id)] : [], (err, results) => {
-        if(err){
-            console.log(err.message);
-            res.status(500).send("Error fetching student");
-            return;
+        if (id) {
+            // id is present — find by primary key
+            const student = await studentDetails.findByPk(parseInt(id));
+            if (!student) {
+                res.status(404).send(`Student not found by id ${id}`);
+                return;
+            }
+            console.log("Student fetched successfully");
+            res.status(200).send(student);
+        } else {
+            // no id — fetch all students
+            const students = await studentDetails.findAll();
+            if (students.length === 0) {
+                res.status(404).send("No students found");
+                return;
+            }
+            console.log("Students fetched successfully");
+            res.status(200).send(students);
         }
-        if(results.length === 0){
-            res.status(404).send(id ? `Student not found by id ${id}` : "No students found");
-            return;
-        }
-        console.log("Students fetched successfully");
-        res.status(200).send(results);
-    });
+
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send("Error fetching student");
+    }
+    // const getQuery = 'SELECT * FROM StudentDetails WHERE id = ?';
+    // const getQueryAll = 'SELECT * FROM StudentDetails';
+
+    // db.execute(id ? getQuery : getQueryAll, id ? [parseInt(id)] : [], (err, results) => {
+    //     if(err){
+    //         console.log(err.message);
+    //         res.status(500).send("Error fetching student");
+    //         return;
+    //     }
+    //     if(results.length === 0){
+    //         res.status(404).send(id ? `Student not found by id ${id}` : "No students found");
+    //         return;
+    //     }
+    //     console.log("Students fetched successfully");
+    //     res.status(200).send(results);
+    // });
 }
 
 module.exports = {
