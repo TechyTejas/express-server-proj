@@ -1,0 +1,1922 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Consumer Loan Agreement</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            font-size: 12px;
+            line-height: 1.4;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .document {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            border: 2px solid #ccc;
+        }
+
+        .page {
+            background: white;
+        }
+
+        .content {
+            padding: 40px;
+            background: white;
+        }
+
+        .footer-page {
+            background: white;
+        }
+
+        .footer-page {
+          page-break-before: always;
+          font-size: 9px;
+          height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: flex-end;
+          line-height: 1.4;
+          box-sizing: border-box;
+        }
+
+        .footer {
+          margin-top: 50px;
+          padding-top: 20px;
+          padding-bottom: 20px;
+          border-top: 1px solid #ddd;
+          text-align: center;
+          font-size: 9px;
+          line-height: 1.4;
+        }
+
+        .footer .company-name {
+          font-weight: bold;
+          margin-bottom: 8px;
+        }
+
+        .footer .company-details {
+          margin-bottom: 4px;
+        }
+
+        .footer .contact-info {
+          margin-top: 8px;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .underline {
+            text-decoration: underline;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .cover-letter-title {
+            font-size: 14px;
+            margin-bottom: 20pt;
+        }
+
+        .main-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .section-spacing {
+            margin-bottom: 6pt;
+            text-align: justify;
+        }
+
+        .field-line {
+            margin-bottom: 6pt;
+        }
+
+        .link {
+            color: #1976d2;
+            text-decoration: underline;
+        }
+
+        .signature-section {
+            margin-top: 40pt;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20pt 0;
+        }
+
+        .table tr th {
+            font-size: 14px;
+        }
+
+        .table th {
+            background-color: #4caf50;
+            color: white;
+            padding: 8pt;
+            border: 1px solid #000;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .table td {
+            padding: 8pt;
+            border: 1px solid #000;
+            text-align: left;
+            vertical-align: top;
+            font-size: 12px;
+        }
+
+        .table .label-col {
+            /*background-color: #f5f5f5;*/
+            font-weight: bold;
+            font-size: 12px;
+            width: 40%;
+            vertical-align: top;
+        }
+
+        .table .label-col1 {
+            /* background-color: #f5f5f5; */
+            width: 35%;
+            vertical-align: top;
+        }
+
+        .numbered-list {
+            margin-left: 20pt;
+        }
+
+        .numbered-list li {
+            margin-bottom: 10pt;
+        }
+
+        .cover-details-table {
+            margin-top: 6pt;
+            border-collapse: collapse;
+        }
+
+        .cover-details-table td:first-child {
+            padding-right: 12pt;
+            white-space: nowrap;
+            vertical-align: top;
+            font-size: 14px;
+        }
+
+        .photo-container {
+            width: 100%;
+            border: none;
+        }
+
+        .photo-cell {
+            text-align: center;
+        }
+
+        .photo-frame {
+            width: 160px;
+            height: 200px;
+            border: 1.5px solid #000;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        .photo-frame td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .photo-frame img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .photo-label {
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        .signature-table {
+            width: 100%;
+            border: none;
+        }
+
+        .signature-cell {
+            width: 50%;
+            border: 1px solid #000;
+            text-align: center;
+            padding: 20pt;
+        }
+
+        .cover-banner {
+            background-color: #4caf50;
+            color: white;
+            padding: 15pt 20pt;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 18pt;
+            font-weight: bold;
+            margin: -20mm -20mm 20pt -20mm;
+        }
+
+        .cover-banner-text {
+            flex: 1;
+            text-align: left;
+        }
+
+        .cover-banner-icon {
+            width: 140pt;
+            height: auto;
+            margin-left: 20pt;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            text-align: right;
+        }
+
+        .logo img {
+            width: 150px;
+        }
+
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: rgb(56, 180, 74);
+            color: white;
+        }
+
+        .header-table td {
+            padding: 20px;
+            vertical-align: middle;
+        }
+
+        .header-table h1 {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .checkbox-list {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .checkbox-list li {
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .checkbox-list li::before {
+            content: "";
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border: 1.5px solid #000;
+            position: absolute;
+            left: 0;
+            top: 3px;
+        }
+
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            @page {
+                size: A4;
+            }
+
+            body {
+                background: white;
+                margin: 0;
+                padding: 0;
+            }
+
+            .document {
+                margin: 0;
+                border: none;
+                max-width: none;
+            }
+
+            .page {
+                margin: 0;
+                border: none;
+                max-width: none;
+                page-break-before: always;
+                page-break-after: auto;
+                page-break-inside: avoid;
+            }
+
+            .page:first-child {
+                page-break-before: avoid;
+            }
+
+            .page:last-child {
+                page-break-after: avoid;
+            }
+
+            .header-table {
+                background: rgb(56, 180, 74) !important;
+                -webkit-print-color-adjust: exact !important;
+            }
+
+            .section-spacing {
+                page-break-inside: avoid;
+            }
+
+            .table {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="document">
+<!-- Page 1: Cover Letter -->
+<div class="page page-first">
+    <table class="header-table">
+        <tr>
+            <td>
+                <h1>CONSUMER LOAN AGREEMENT</h1>
+            </td>
+            <td class="logo">
+                <img width="150" height="45"
+                     src="data:image/png;base64,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"
+                     alt="Comfort Fincap Logo" />
+            </td>
+        </tr>
+    </table>
+
+    <div class="content">
+    <div class="center cover-letter-title underline"><br />Cover Letter</div>
+
+    <div class="field-line">
+        Date:
+        <span th:text="${currentDateSnapshot.date}"></span>
+    </div>
+
+    <div class="section-spacing">
+        <div>To,</div>
+
+        <table class="cover-details-table">
+            <tr>
+                <td>Customer Name:</td>
+                <td th:text="${primaryApplicantProfile.fullName}"></td>
+            </tr>
+            <tr>
+                <td>Address:</td>
+                <td th:text="${primaryApplicantProfile.address.fullAddress}">
+                </td>
+            </tr>
+            <tr>
+                <td>Customer Id:</td>
+                <td th:text="${primaryApplicantProfile.cifId}"></td>
+            </tr>
+            <tr>
+                <td>Name of the Product:</td>
+                <td th:text="${termLoanData.productDetails.brandName + ' ' + termLoanData.productDetails.modelName}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section-spacing">Dear Sir/Madam,</div>
+
+    <div class="section-spacing">
+        We value your relationship with Comfort Fincap Limited ("CFL"). CFL Strives to ensure customer delight
+        through its exceptional delivery of Financial Services
+    </div>
+
+    <div class="section-spacing">
+        You have been appraised with all relevant information before disbursal of loan including Loan terms as
+        detailed in Key Facts Statement (KFS).
+    </div>
+
+    <div class="section-spacing">
+        Post your complete understanding of the same, you conveyed your acceptance to the KFS, terms of Sanction
+        Letter and the Loan Terms and Conditions("documentation"), you have accepted and executed the said
+        documentation.
+    </div>
+
+    <div class="section-spacing">
+        A copy of the said KFS, Sanction Letter and the Loan Terms and Conditions accepted and executed by you
+        are enclosed herewith for your reference and records. Should you have any queries please reach out to
+        <span class="link">022-68948500</span>
+        , or write to us at
+        <a href="mailto:care@comfortfincap.com" class="link">care@comfortfincap.com</a>
+    </div>
+
+    <div class="signature-section">
+        <div>Thanks & Regards,</div>
+        <div>For Comfort Fincap Limited</div>
+        <div>Authorised Signatory,</div>
+    </div>
+    </div>
+</div>
+
+<!-- Page 2: Agreement Details -->
+<div class="page">
+    <div class="content">
+    <div class="section-spacing">
+        <div class="center main-title underline">CONSUMER LOAN AGREEMENT</div>
+
+        <div class="section-spacing">
+            This agreement for Consumer Loan ("Agreement") is made at the place and on the date as mentioned in
+            the First Schedule hereto by and between Comfort Fincap Limited., a non-banking finance company
+            registered with Reserve Bank of India, incorporated under the Companies Act, 1956, and now existing
+            under the Companies Act, 2013, bearing CIN No.
+            <span class="bold">L65923WB1982PLC035441</span>
+            and having its
+            <span class="bold">Registered office</span>
+            at 22,Camac Street, Block 'B', Ground Floor, Behind Pantaloons, Kolkata, West Bengal-700016, having
+            <span class="bold">its Corporate office</span>
+            at A-301, Hetal Arch, Opp Natraj Market, S V Road, Malad West, Mumbai 400 064 (hereinafter referred
+            to as
+            <span class="bold">"CFL" / "Lender"</span>
+            , which expression shall, unless repugnant to the meaning or context thereof be deemed to mean and
+            include its successors in title and assigns) through its authorized representative, of the
+            <span class="bold">ONE PART;</span>
+        </div>
+
+        <div class="center section-spacing bold">And</div>
+
+        <div class="section-spacing">
+            <span th:text="${primaryApplicantProfile.fullName}">Customer Name</span>
+            , born on
+            <span th:text="${primaryApplicantProfile.dateOfBirth}">DD/MM/YYYY</span>
+            , Residing at
+            <span th:text="${primaryApplicantProfile.aadharAddress}">_________________</span>
+            having PAN No
+            <span th:text="${primaryApplicantProfile.pan}">________</span>
+            (hereinafter called "the Borrower" which expression shall include its legal heirs, permitted
+            assigns, executors and all persons claiming / deriving title there under; and shall include
+            co-borrowers, whether expressly mentioned or otherwise) of the
+            <span class="bold">OTHER PART</span>
+        </div>
+
+        <div class="section-spacing">
+            <span class="bold">CFL</span>
+            and the
+            <span class="bold">Borrower</span>
+            are hereinafter collectively referred to as 'Parties' and individually as 'Party'. The expressions
+            "Borrower" and the "Lender" unless repugnant to the context, shall include their respective heirs,
+            representatives, successors, executors, administrators and assigns.
+        </div>
+
+        <br/>
+         <div class="bold">WHEREAS</div>
+        <br/>
+
+        <ol class="numbered-list">
+            <li>
+                The Borrower has under the provisions of the Rules framed under the Lender's scheme for grant of
+                loans to public (hereinafter called the said Rules which expression where the context so admits
+                include any amendment thereof or additions thereto for the time being in force and shall be
+                deemed to form part of these presents) applied to the Lender for a loan of Rs.
+                <span th:text="${sanctionedAmount.value}">_____</span>
+                (Rupees
+                <span th:text="${sanctionedAmount.valueInWords}">____________________________________</span>
+                ) (hereinafter referred to as the said "Loan") and the Lender has agreed to lend the said amount
+                to the Borrower on the terms and conditions hereinafter contained and against the securities,
+                for which the necessary documents are executed / arranged by Borrower.
+            </li>
+            <li>
+                In pursuance of the above, the Lender has agreed to allow the Borrower to repay the said loan by
+                <span th:text="${application.tenure.value}">___</span>
+                EMI (as defined hereinafter) of Rs
+                <span th:text="${application.pricing.emi.value}">____</span>
+                subject to the Borrower agreeing to the terms and conditions hereinafter set out more
+                particularly described herein in this Agreement, in the Schedules under this Agreement and the
+                Sanction Letter (as hereinafter defined).
+            </li>
+        </ol>
+    </div>
+
+    <!-- Page 3: Application Form -->
+    <div class="center">
+  
+        <div class="bold main-title">Consumer Application Form</div>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th colspan="2">Personal Details</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="label-col">Name of the Customer</td>
+            <td th:text="${primaryApplicantProfile.fullName}"></td>
+        </tr>
+        <tr>
+            <td class="label-col">Reference</td>
+            <td th:text="${application.references[0].name}"></td>
+        </tr>
+        <tr>
+            <td class="label-col">Date of Birth</td>
+            <td th:text="${primaryApplicantProfile.dateOfBirth}"></td>
+        </tr>
+        <tr>
+            <td class="label-col">Gender</td>
+            <td th:text="${primaryApplicantProfile.gender}"></td>
+        </tr>
+        <!--<tr>-->
+        <!--    <td class="label-col">Marital Status</td>-->
+        <!--    <td th:text="${maritalStatus}"></td>-->
+        <!--</tr>-->
+        <tr>
+            <td class="label-col">Nationality</td>
+            <td>INDIAN</td>
+        </tr>
+        <tr>
+            <td class="label-col">Annual Income</td>
+            <td th:text="${primaryApplicantProfile.employmentDetails.annualIncome}"></td>
+        </tr>
+        <tr>
+            <td class="label-col">Pan No</td>
+            <td th:text="${primaryApplicantProfile.pan}"></td>
+        </tr>
+        <tr>
+            <td class="label-col">Aadhar Number</td>
+            <td th:text="${primaryApplicantProfile.aadhaar}"></td>
+        </tr>
+        <tr>
+            <td class="label-col">Purpose of Loan</td>
+            <td>Consumer Durable Loan</td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="table">
+        <thead>
+        <tr>
+            <th colspan="2">Contact Details</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--<tr>-->
+        <!--    <td class="label-col">Residence Type</td>-->
+        <!--    <td th:text="${residenceType}"></td>-->
+        <!--</tr>-->
+        <tr>
+            <td class="label-col">Contact Number - Borrower</td>
+            <td th:text="${primaryApplicantProfile.mobile}"></td>
+        </tr>
+        <tr>
+            <td class="label-col">Contact Number - Reference</td>
+            <td th:text="${application.references[0].phoneNumber}"></td>
+        </tr>
+        <tr>
+            <td class="label-col">Email ID</td>
+            <td th:text="${primaryApplicantProfile.email}"></td>
+        </tr>
+        <tr>
+            <td class="label-col">Current Address</td>
+            <td th:text="${primaryApplicantProfile.address.fullAddress}">
+            </td>
+        </tr>
+        <tr>
+            <td class="label-col">Area</td>
+            <td th:text="${area}"></td>
+        </tr>
+        <tr>
+            <td class="label-col">Landmark</td>
+            <td>--</td>
+        </tr>
+        <tr>
+            <td class="label-col">City</td>
+            <td th:text="${primaryApplicantProfile.address.city}"></td>
+        </tr>
+        <tr>
+            <td class="label-col">Pin Code</td>
+            <td th:text="${primaryApplicantProfile.address.pinCode}"></td>
+        </tr>
+        <tr>
+            <td class="label-col">State</td>
+            <td th:text="${primaryApplicantProfile.address.state}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Page 4: Contact and Employment Details -->
+    <table class="table">
+        <thead>
+        <tr>
+            <th colspan="2">Employment/Business Details</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="label-col">Employment Type<span style="font-weight: normal;"><br>
+                    </span></td>
+            <td th:text="${primaryApplicantProfile.employmentDetails.employmentType}"></td>
+        </tr>
+        <!--<tr>-->
+        <!--    <td class="label-col">Qualification</td>-->
+        <!--    <td th:text="${qualification}"></td>-->
+        <!--</tr>-->
+        <tr>
+            <td class="label-col">Name of the company/Profession</td>
+            <td th:text="${primaryApplicantProfile.occupation}"></td>
+            <!--</tr>-->
+            <!--<tr>-->
+            <!--    <td class="label-col">Official Address</td>-->
+            <!--    <td th:text="${officialAddress}"></td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+            <!--    <td class="label-col">Area</td>-->
+            <!--    <td th:text="${officeArea}"></td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+            <!--    <td class="label-col">Landmark</td>-->
+            <!--    <td th:text="${officeLandmark}"></td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+            <!--    <td class="label-col">City</td>-->
+            <!--    <td th:text="${officeCity}"></td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+            <!--    <td class="label-col">State</td>-->
+            <!--    <td th:text="${officeState}"></td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+            <!--    <td class="label-col">Office Phone Number</td>-->
+            <!--    <td th:text="${officePhoneNumber}"></td>-->
+            <!--    <td></td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+            <!--    <td class="label-col">Office Phone No</td>-->
+            <!--    <td></td>-->
+            <!--</tr>-->
+        </tr>
+        </tbody>
+    </table>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th colspan="2">Product Details</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="label-col">Product Name</td>
+            <td th:text="${termLoanData.productDetails.brandName + ' ' + termLoanData.productDetails.modelName}"></td>
+        </tr>
+        <tr>
+            <td class="label-col">Sanction Loan Amount</td>
+            <td th:text="${sanctionedAmount.value}"></td>
+        </tr>
+        <tr>
+            <td class="label-col">Product Price</td>
+            <td th:text="${termLoanData.productDetails.productPrice}"></td>
+        </tr>
+        <tr>
+            <td class="label-col">IMEI No</td>
+            <td th:text="${termLoanData.productDetails.imeiNumber}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <br />
+    <br />
+
+    <div class="section-spacing">
+        <div class="bold">Now this agreement witnessed as Follows:</div>
+        <br/>
+    </div>
+
+    <div class="section-spacing">
+        <div class="bold">1. Definition:</div>
+    </div>
+
+    <div class="section-spacing">
+        Loan-The Lender agrees to advance to the Borrower(s) and the Borrower(s) agrees to borrow from the
+        Lender, the Loan as specified in the Schedule-I written hereunder and, on the terms, and conditions and
+        the purpose as stated in this Agreement, Application Form and Sanction Letter.
+    </div>
+
+    <div class="section-spacing">
+        <div class="bold">2. Acknowledgements</div>
+    </div>
+
+    <div class="section-spacing">
+        The Borrower(s) hereby agrees, represents, undertakes, covenants and confirms that:
+    </div>
+    <!-- Page 4: Joint Liabilities and Events of Default -->
+    <div class="section-spacing">
+        a. The Loan shall be utilized only for the personal requirement of the Borrower(s) as mentioned in the
+        Application Form, First Schedule and in the Sanction Letter and shall not be used for any other purpose
+        including making investment in the capital market or for any speculative purposes, unlawful purposes
+        and/or antisocial purpose. Any diversion or end use of the Loan for any purpose other than the purpose
+        for which the Loan is granted shall entitle the Lender to forthwith demand the repayment of the entire
+        outstanding Loan together with accrued interest irrespective of the fact that the Loan so granted is
+        classified as a standard and running Loan in the books of the Lender.
+    </div>
+
+    <div class="section-spacing">
+        b. The Loan disbursement done by the Lender to the account of the Merchant and Jetfinx shall be
+        construed as valid disbursement for and on behalf of the Borrower for purchase of the consumer durable
+        product by the borrower and that the Borrower shall be liable for the due discharge of the said loan
+        liability as per the terms and conditions mentioned in the agreement hereinafter.
+    </div>
+
+    <div class="section-spacing">
+        <div class="bold">3. Payment, EMIs and Interest</div>
+    </div>
+
+    <div class="section-spacing">
+        The Borrower(s) hereby understands, acknowledges, confirms, assures and agrees that (a)The Outstanding
+        Amount shall be repayable as mentioned in the Second Schedule hereto in the form of EMIs in the manner
+        and within the tenor of the Loan as specified in the Second Schedule hereto
+    </div>
+
+    <div class="section-spacing">
+        <div class="bold">4. Security</div>
+    </div>
+
+    <div class="section-spacing">
+        "Security" shall mean the mortgage, guarantees, hypothecation, pledged asset or any other security
+        interest or any other agreement or arrangement having the effect of conferring security in favors of the
+        Lender in relation to the Loan including but not limited to a lien, charge, assignment or mortgage as
+        may be required by the Lender from time to time, as may be acceptable to the Lender and in the form and
+        manner as stated in the First Schedule and/or Sanction Letter. Provided that where the Borrower(s) is
+        required to make any registrations and filings in respect of the creation of such Security under
+        Applicable Law, the Borrower(s) shall make all such registrations and filings in this regard. Provided
+        further that where the Borrower(s) needs any consent for the creation of any such Security, the
+        Borrower(s) shall have also obtained all such consents prior to the creation of such Security;
+    </div>
+
+    <div class="section-spacing">
+        The Borrower(s) shall execute and/or cause to be executed all documents, deeds and writings and such
+        further securities as may be required by the Lender, including a promissory note in the form and manner
+        as prescribed by the Lender.
+    </div>
+
+    <div class="section-spacing">
+        <div class="bold">Joint and Several Liabilities</div>
+    </div>
+    <div class="section-spacing">
+        The liabilities of the Borrower and the Co-Borrowers/ guarantors, as mentioned in the First Schedule
+        hereto under this Agreement, shall be joint and several.
+    </div>
+
+    <div class="section-spacing">
+        <div class="bold">Default Interest</div>
+    </div>
+
+    <div class="section-spacing">
+        In respect of any delayed payments in relation to the Loan, without prejudice to any other right of the
+        Lender under this Agreement, the Lender shall be entitled to recover default interest from the
+        Borrower(s) as mentioned in this Agreement.
+    </div>
+
+    <div class="section-spacing">
+        In the case of an arrangement for financing under any scheme of direct deduction of the EMIs from the
+        salary of the Borrower(s), this default interest shall apply in case of delay/default in remittance to
+        the Lender, even if the EMI has been deducted from the salary of the Borrower(s) by the employer.
+    </div>
+
+    <div class="section-spacing">
+        <div class="bold">5. Events of Default</div>
+    </div>
+
+    <div class="section-spacing">
+        The Borrower(s) shall be deemed to have committed an act of default if the Borrower(s) does not comply
+        with his/her obligations as mentioned in the Agreement and also on the happening of any one or more of
+        the following events, (each an 'Event of Default' and collectively 'Events of Default'):
+    </div>
+
+    <div class="section-spacing">
+        a. The Borrower(s) fails to pay any Outstanding Amount under this Agreement on or before the due date or
+        commits breach of any of the terms, covenants or conditions contained in this Agreement
+    </div>
+
+    <div class="section-spacing">
+        b. It is found that the Borrower(s) commits a default of any of the terms and conditions in respect of
+        any other loan or facility provided by the Lender;
+    </div>
+
+    <div class="section-spacing">
+        c. There exist any circumstances in which the opinion of the Lender prejudicially affects or may affect
+        the Lender's interest or the Borrower(s) ability to repay the Loan;
+    </div>
+
+    <div class="section-spacing">
+        d. Default in furnishing information, reports, etc. as requested by the Lender under the said Agreement;
+    </div>
+
+    <div class="section-spacing">
+        e. Any information furnished by the Borrower to the Lender in the application form or during the
+        currency of the Loan is found to be misleading or incorrect in any material respect;
+    </div>
+
+    <div class="section-spacing">
+        f. If Borrower / Co – Borrower / Guarantor files for bankruptcy or faces any winding-up petition.
+    </div>
+
+    <div class="section-spacing">
+        <div class="bold">6. Remedies in case of Default</div>
+    </div>
+
+    <div class="section-spacing">
+        The Lender shall have the following remedies without prejudice to the other rights and remedies under
+        this Agreement, in law or in equity:
+    </div>
+
+    <div class="section-spacing">
+        a. The Lender shall be entitled to recover the Bounce Charges of the Repayment Instrument(s), default
+        interest and any other penal charges from the Borrower(s) as mentioned in the First Schedule.
+    </div>
+
+    <div class="section-spacing">
+        b. Any other remedy which may be available under Applicable Law during the pendency of the Loan
+        including without limitation under Section 138 of the Negotiable Instruments Act, 1881 and under Section
+        25 (1) of Payment of Settlement System Act, 2007.
+    </div>
+
+    <div class="section-spacing">
+        <div class="bold">7. General Terms</div>
+    </div>
+
+    <div class="section-spacing">
+        a. Upon the Borrower(s) paying to the Lender all the EMIs on the due dates as specified in the Second
+        Schedule and also upon paying to the Lender all other sums, payable by the Borrower(s) to the Lender
+        under this Agreement, the Loan shall come to an end.
+    </div>
+
+    <div class="section-spacing">
+        b. Any statement of account furnished by the Lender regarding the balance amount due and payable by the
+        Borrower(s) under this Agreement shall be accepted by and be binding on the Borrower(s) and shall be
+        conclusive proof of the correctness of the amount mentioned therein. Without prejudice to what is stated
+        above, if the Borrower(s) desires to question any statement or any part thereof, the Borrower(s) shall
+        furnish to the Lender full details of the same within 10 Business Days of the receipt of the statement
+        by the Borrower(s) and the Lender may consider the same and the Borrower(s) shall not be entitled to
+        object to the same thereafter on any ground whatsoever. It is however clarified that the Borrower(s)
+        shall not be entitled to default or delay the payment of EMIs on the ground of the statement of account
+        furnished by the Lender being inaccurate or any other ground.
+    </div>
+
+    <div class="section-spacing">
+        c. The Borrower(s) shall have no right to terminate this Agreement save and except by repayment, in
+        full, of all monies payable including the interest accrued, other charges and penalty amounts payable,
+        if any, under this Agreement to the Lender.
+    </div>
+
+    <div class="section-spacing">
+        d. The Borrower(s) hereby irrevocably authorizes the Lender to return the Repayment Instrument(s) (if
+        any) in the possession of the Lender upon repayment of the Loan together with all costs, charges and
+        expenses, by the Borrower(s) to the satisfaction of the Lender.
+    </div>
+
+    <div class="section-spacing">
+        e. Wherever the Borrower(s) has given demand promissory note(s) to the Lender for the amount of the
+        Loan, in case of a default, the Borrower(s) will still be liable to repay to the Lender the Loan amount
+        along with the interest rate mentioned in the Second Schedule hereto from the date of default till
+        actual payment.
+    </div>
+
+    <div class="section-spacing">
+        f. The Borrower(s) confirms that if a demand promissory note is issued by him/her/them, the same shall
+        operate as continuing security to the Lender to be enforceable for the repayment of the ultimate balance
+        and/or all sums remaining unpaid under the Loan now or hereafter, including all interest to become
+        payable in respect of/under the Loan or which may in future be advanced and that the Borrower(s) will
+        remain liable under/in respect of the Demand Promissory Note notwithstanding payment made into the
+        account of the Loan from time to time or the Loan being reduced or extinguished from time to time or
+        even if the balance in the account of the Loan may be in credit. In case of death of the Borrower(s),
+        the demand promissory note(s) given by the Borrower(s) will be invoked against his/her legal heir/s,
+        legal representative/s, executor/s, administrator/s and permitted assign/s.
+    </div>
+
+    <div class="section-spacing">
+        g. The Borrower(s) hereby agrees and confirms that the Lender shall have the right to cross sell its
+        other products and services (like extended Warranty) and the products and services of its affiliates and
+        group companies, to the Borrower(s) at any point of time during the existence of the Loan or thereafter.
+    </div>
+
+    <div class="section-spacing">
+        <div class="bold">8. Indemnity</div>
+    </div>
+
+    <div class="section-spacing">
+        The Borrower(s) hereby indemnifies and agrees to indemnify and keep indemnified the Lender from time to
+        time and at all times hereafter from and against any and all claims, damages, costs, losses, expenses,
+        suits, proceedings, actions, liabilities etc. that may have to be suffered by the Lender by reason of
+        any act by the Borrower(s) or default on the part of the Borrower(s) under this Agreement.
+    </div>
+
+    <div class="section-spacing">
+        <div class="bold">9. Stamp Duty and Taxes</div>
+    </div>
+
+    <div class="section-spacing">
+        The Borrower(s) shall pay any and all stamp duty, stamp duty penalties, registration and similar taxes
+        and duties which are or may become payable in connection with the entry into, performance or enforcement
+        of this Agreement whether at the time of execution or thereafter.
+    </div>
+
+    <div class="section-spacing">
+        (a) The Borrower(s) hereby agrees that in case the Lender is required to make any payments such as stamp
+        duty, stamp duty penalty, registration charges and/or any other charges and/or duties on and in relation
+        to this Agreement or any other underlying/associated documents, whether at the time of execution or
+        thereafter, the Lender shall then be entitled/authorized to recover the same from the Borrower(s).
+    </div>
+
+    <div class="section-spacing">
+        <div class="bold">10. Communications</div>
+    </div>
+    <div class="section-spacing">
+        a) Any notice to be given to the Borrower(s) in respect of this Agreement shall be deemed to have been
+        validly given if served on the Borrower(s) or sent by registered post to or left at the address of the
+        Borrower(s) stated in the First Schedule hereto at the Borrower(s)'s existing or last known business or
+        private address. Any such notice sent by registered post shall be deemed to have been received by the
+        Borrower(s) within 48 hours from the time of its posting. Notice can be sent either by Registered Post
+        or telegram or by courier or by email or by Fax or by SMS text messaging or WhatsApp messaging via
+        mobile phone.
+    </div>
+
+    <div class="section-spacing">
+        b) Without prejudice to all other rights as the Lender or any of the third parties appointed by the
+        Lender may have under this Agreement and under law, on the occurrence of an Event of Default, the
+        Lender, its authorized representatives, agents, and third parties as appointed by the Lender are
+        authorized to use the contact details provided by the Borrower(s) to get in touch with the Borrower(s)
+        (including the authorized signatory(ies) / representative(s), Guarantor(s) (if any) and third parties
+        including the Reference and family members of the Borrower(s)) whose information the Borrower(s) has
+        provided to the Lender. Also, the Borrower(s) may be sent reminders from time to time for settlement of
+        any Outstanding Amount by post, fax, telephone, email, SMS text messaging or WhatsApp messaging via
+        mobile phone.
+    </div>
+
+    <div class="section-spacing">
+
+    </div>
+
+    <div class="section-spacing">
+        <div class="bold">11. Governing Law, Arbitration and Jurisdiction</div>
+        (a) All disputes, differences, claims and question, including the recovery of outstanding dues and
+        enforcement of Security, whatsoever arising out of these presents or as to the construction, meaning or
+        effect hereof or as to the rights and liabilities of the Parties hereunder shall be referred to the
+        arbitration of Sole Arbitrator to be named and / or appointed by the Lender and the decision (interim
+        award / award) of the Arbitrator shall be final and binding upon the parties hereto. The arbitration
+        shall be governed by the Arbitration and Conciliation Act, 1996 or any statutory amendments thereof or
+        any statute enacted for replacement thereof. The venue of such arbitration shall be in Mumbai. The
+        language of the arbitration shall be in English.
+    </div>
+
+    <div class="section-spacing">
+        Alternatively, and without prejudice to the rights and remedies of the Lender mentioned herein, the
+        Lender shall have sole discretion and/or have exclusive rights to invoke any other appropriate
+        remedy/ies under any other applicable provisions of Applicable Law against the Borrower(s) for any
+        events of default and/or terms, conditions, covenants and undertakings mentioned in this Agreement by
+        the Borrower(s).
+    </div>
+
+    <div class="section-spacing">
+        a.
+        <span class="bold">Jurisdiction</span>
+    </div>
+
+    <div class="section-spacing">
+        The Parties hereby agree that the Courts of competent authority at Mumbai will have jurisdiction. In
+        addition, the Lender would alternatively also be entitled exclusively to proceed against the Borrower(s)
+        in courts of jurisdiction at Mumbai and/or Applicable Laws.
+    </div>
+
+    <div class="section-spacing">
+        b.
+        <span class="bold">Governing Law</span>
+    </div>
+
+    <div class="section-spacing">
+        This Agreement shall be subject to, governed by, and construed in accordance with the laws of India.
+    </div>
+
+    <div class="section-spacing">
+        c.
+        <span class="bold">Electronic Authentication</span>
+    </div>
+
+    <div class="section-spacing">
+        The Loan Agreement may be authenticated electronically. Parties hereto, on such electronic
+        authentication of this Loan Agreement, hereby agree to such method of electronic authentication. The
+        Borrower further agrees that such electronic authentication shall be legally enforceable against the
+        Borrower and the Borrower shall not challenge the validity or enforceability of such authentication.
+    </div>
+    </div>
+</div>
+
+<div class="page">
+    <div class="content">
+    <div class="center section-spacing">
+        <br/>
+        <div class="bold center">FIRST SCHEDULE</div>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Sr. No.</th>
+            <th>Particulars</th>
+            <th>Details</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td class="label-col1">Agreement Date </td>
+            <td th:text="${currentDateSnapshot.date}"></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Place</td>
+            <td>Mumbai</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Loan Amount In Rs.</td>
+            <td th:text="${sanctionedAmount.value}"></td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Loan Amount In Words</td>
+            <td th:text="${sanctionedAmount.valueInWords}"></td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Purpose</td>
+            <td>Consumer Durable Loan</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>Partner Name</td>
+            <td>Jetfinx Enterprise Private Limited</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Merchant Name</td>
+            <td th:text="${termLoanData.merchant.gstDetails.tradeName}"></td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Merchant Address</td>
+            <td th:text="${termLoanData.merchant.address}"></td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Extended Warranty Service Provider</td>
+            <td>
+                Jetfinx Enterprise Private Limited
+                <br />
+                215, Sahajanand Business Park, Opp Palm Hotel, S P Ring Road Nikol, Ahmedabad, Gujarat 382350
+
+            </td>
+        </tr>
+        <!--<tr>-->
+        <!--    <td>9</td>-->
+        <!--    <td>Merchant GST No.</td>-->
+        <!--    <td th:text="${merchant.gstNumber}"></td>-->
+        <!--</tr>-->
+        <tr>
+            <td>10</td>
+            <td>
+                Product Description:
+                <br />
+                Brand Name:
+                <br />
+                Model Name:
+                <br />
+                IMEI No.:
+                <br />
+            </td>
+            <td>
+                <br />
+                <span th:text="${termLoanData.productDetails.brandName}"></span>
+                <br />
+                <span th:text="${termLoanData.productDetails.modelName}"></span>
+                <br />
+                <span th:text="${termLoanData.productDetails.imeiNumber}"></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
+<div class="page">
+    <div class="content">
+    <table class="table">
+        <tbody>
+        <tr>
+            <td>11</td>
+            <td class="label-col1">
+                Details of the Borrower(s):
+                <br />
+                Name:
+                <br />
+                <br />
+                Communication details:
+                <br />
+                <br />
+                Type of the Borrower(s):
+                <br />
+                <br />
+                Address of Residence:
+                <br />
+                <br />
+                Name of the Proprietor(s):
+            </td>
+            <td>
+                <br />
+                <span th:text="${primaryApplicantProfile.fullName}"></span>
+                <br />
+                <br />
+                <span th:text="${primaryApplicantProfile.email}"></span>
+                <br />
+                <br />
+                Individual
+                <br />
+                <br />
+                <span th:text="${primaryApplicantProfile.aadharAddress}"></span>
+                <br />
+                <br/>
+                <span th:text="${termLoanData.merchant.name}"></span>
+                <br/>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td>12</td>
+            <td>
+                City/Town of the Lending Branch of
+                CFL:
+            </td>
+            <td>Mumbai</td>
+        </tr>
+        <tr>
+            <td>13</td>
+            <td>Bounce Charges of the Repayment instrument(s):</td>
+            <td>
+                In case of default by reason of the Repayment instrument(s) being dishonored, CFL shall
+                charge Rs. 500 (Plus applicable taxes or other statutory levies, if any) per month/per
+                default towards its dishonor
+            </td>
+        </tr>
+        <tr>
+            <td>14</td>
+            <td>Penal Fees</td>
+            <td>
+                In case of delay in payment of Monthly Instalment, CFL shall charge per day delay fee of
+                Rs.10/- (Plus applicable taxes or other statutory levies, if any) till the payment is
+                cleared in addition to the bounce charges
+            </td>
+        </tr>
+        <tr>
+            <td>15</td>
+            <td>Processing Fee</td>
+            <td>
+                A non-refundable processing fee of 3% of product value + applicable Taxes will be deducted from
+                the sanctioned amount at the time of disbursement.
+            </td>
+        </tr>
+        <tr>
+            <td>16</td>
+            <td>Foreclosure Charges</td>
+            <td>
+                Foreclosure is permitted as per Comfort Fincap policy, foreclosure charges will be 4% of the
+                outstanding loan.
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Page 10: First Schedule Continued -->
+    <br />
+    <br />
+    <div class="center section-spacing">
+        <div class="bold center">SECOND SCHEDULE</div>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th colspan="3">Loan Summary</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>A</td>
+            <td>Product Price</td>
+            <td th:text="${termLoanData.productDetails.productPrice}"></td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>Extended Warranty Service</td>
+            <td th:text="${termLoanData.productDetails.extendedWarrantyPrice}"></td>
+        </tr>
+        <tr>
+            <td>C</td>
+            <td>Gross Price (A+B)</td>
+            <td th:text="${termLoanData.productDetails.grossProductPrice}"></td>
+        </tr>
+        <tr>
+            <td>D</td>
+            <td>Down Payment</td>
+            <td th:text="${termLoanData.downPaymentByCustomer.value}"></td>
+        </tr>
+        <tr>
+            <td>E</td>
+            <td>Loan Amount</td>
+            <td th:text="${sanctionedAmount.value}"></td>
+        </tr>
+        <tr>
+            <td>F</td>
+            <td>Processing Fees</td>
+            <td th:text="${feeInfo.processingFee.feeValue.value}"></td>
+        </tr>
+        <tr>
+            <td>G</td>
+            <td>Disbursement Amount</td>
+            <td th:text="${termLoanData.disbursementAmount.value}"></td>
+
+        </tr>
+        <tr>
+            <td>H</td>
+            <td>Rate of Interest</td>
+            <td th:text="${application.pricing.annualRateOfInterest}"></td>
+        </tr>
+        <tr>
+            <td>I</td>
+            <td>Total EMI</td>
+            <td th:text="${application.pricing.emi.value}"></td>
+        </tr>
+        <tr>
+            <td>J</td>
+            <td>Upfront Payment from Customer</td>
+            <td th:text="${termLoanData.upfrontPaymentToCustomer.value}"></td>
+        </tr>
+        <tr>
+            <td>K</td>
+            <td>Disbursement to Merchant</td>
+            <td th:text="${termLoanData.disbursalToMerchant.value}"></td>
+            
+        </tr>
+        <tr>
+            <td>L</td>
+            <td>Disbursement to EW Provider</td>
+            <td th:text="${termLoanData.productDetails.extendedWarrantyPrice}"></td>
+        </tr>
+        <tr>
+            <td>M</td>
+            <td>Loan Tenure (in Months)</td>
+            <td th:text="${termLoanData.repaymentSchedule.size()}"></td>
+        </tr>
+        <tr>
+            <td>N</td>
+            <td>Interest Type</td>
+            <td>Reducing Balance Method</td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
+ 
+<div class="page">
+    <div class="content">
+    <table class="table">
+        <thead>
+        <tr>
+            <th colspan="2">Repayment Details</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="label-col">Repayment Bank Name</td>
+            <td th:text="${primaryApplicantProfile.bankDetails.bankName}"></td>
+        </tr>
+        <tr>
+            <td class="label-col">Repayment Bank A/C Number</td>
+            <td th:text="${primaryApplicantProfile.bankDetails.accountNumber}"></td>
+        </tr>
+        <tr>
+            <td class="label-col">Instalment Amount (Rs)</td>
+            <td th:text="${application.pricing.emi.value}"></td>
+        </tr>
+        <tr>
+            <td class="label-col">First Instalment Due Date</td>
+            <td th:text="${application.firstEmiDate}"></td>
+        </tr>
+        <!--<tr>-->
+        <!--    <td class="label-col">Last Instalment Due Date</td>-->
+        <!--    <td></td>-->
+        <!--</tr>-->
+        </tbody>
+    </table>
+
+    <!-- Page 11: General Terms and Conditions -->
+
+    <div class="section-spacing">
+        <div class="bold">General Terms and Conditions -</div>
+    </div>
+
+    <div class="section-spacing">I hereby agree and confirm</div>
+    <div class="section-spacing">
+        <div class="bold">1. That,</div>
+    </div>
+
+    <div class="section-spacing">
+        (i) I confirm that I am not less than 21 years of age and not more than 55 years of age as of the date
+        hereof,
+    </div>
+
+    <div class="section-spacing">(ii) Can understand, read, and write in the English language,</div>
+
+    <div class="section-spacing">
+        (iii) I have read and understood the Customer Loan agreement and Terms and Conditions.
+    </div>
+
+    <div class="section-spacing">
+        <div>
+            2. That I am Applying for Finance facility from Comfort Fincap Limited (CFL) as stated in
+            Application Form.
+        </div>
+    </div>
+
+    <div class="section-spacing">
+        <div>
+            3. To submit and Execute any/all documents, in such form and manner as may be required by CFL in
+            relation to CFL in relation to this Application Form.
+        </div>
+    </div>
+
+    <div class="section-spacing">
+        <div>
+            4. I shall make payment of the applicable fee and/or charges, specified herein by CFL with respect
+            to this loan agreement and as more specifically detailed under SECOND SCHEDULE above.
+        </div>
+    </div>
+
+    <div class="section-spacing">
+        <div>
+            5. Authentication /Acceptance - The mode of Authentication /Acceptance may be done by me through any
+            one of the following modes, namely: -
+        </div>
+    </div>
+
+    <div class="section-spacing">
+        (a)
+        <span class="bold">By Physical execution-</span>
+        The documentation will be signed by me, in person, and the same shall be relied acted as my explicit
+        return instruction/consent by CFL, OR
+    </div>
+
+    <div class="section-spacing">
+        (b)
+        <span class="bold">By Electronic Authentication</span>
+        -By checking the "I AGREE" Button at the end of the Customer Agreement and by Submitting the OTP send by
+        CFL or Authentication /Execution by any other electronic mode. I confirm my Acceptance on the customer
+        Loan Agreement and terms and conditions in relation to loan through Electronic means and shall be relied
+        and acted upon by CFL.
+    </div>
+
+    <div class="section-spacing">
+        <div class="bold">6. CKYC/VKYC Consent-</div>
+    </div>
+
+    <div class="section-spacing">
+        (a) I hereby authorize CFL to verify/check/obtain/download/upload/update/retrieve/receive my KYC details
+        from/with the Central KYC/Video KYC Registry;
+    </div>
+
+    <div class="section-spacing">
+        (i) By verifying such details through CKYC/VKYC Number, (i.e. KYC Identifier number (KIN) provided by me
+        or
+    </div>
+
+    <div class="section-spacing">
+        (ii) Obtaining such CKYC/VKYC number /KIN, through details shared by me for this Application Form.
+    </div>
+
+    <div class="section-spacing">
+        (b) I hereby consent for receiving information from Central KYC/Video KYC registry
+    </div>
+
+    <div class="section-spacing">through SMS/Email on the registered Number/email address provided by me.</div>
+
+    <div class="section-spacing">
+        <div class="bold">
+            7. Aadhaar based authentication (Aadhaar EKYC) or Verification (Aadhaar OKYC) facility provided by
+            Unique Identification Authority of India "UIDAI".
+        </div>
+    </div>
+
+    <div class="section-spacing">
+        a) Consent-At my own Discretion, I voluntarily opt to perform and avail Aadhaar based
+        Authentication(e-KYC) or (OKYC) from UIDAI and hereby submit to the CFL, the physical copy of Aadhaar
+        card / physical e-Aadhaar / masked Aadhaar / Aadhaar Secure QR code / offline electronic Aadhaar xml as
+        issued by UIDAI (Aadhaar), Aadhaar number, Virtual ID, e-Aadhaar, Aadhaar Letter, XML file, date of
+        birth, Aadhaar holder name, photo, demographic information, face authentication details and/or biometric
+        information (collectively, "Information") for the purpose of establishing my identity / address proof or
+        in the capacity of guardian of my minor child's identity / address.
+    </div>
+
+    <div class="section-spacing">
+        I am informed by the CFL that in connection with Aadhaar e-KYC or Aadhaar OKYC services, CFL shall share
+        Aadhaar number and/or biometrics with CIDR/UIDAI, and in response, the CIDR/UIDAI shall share with CFL,
+        the authentication data or verification data such as Aadhaar Holder Name, Date of Birth, Address, Photo,
+        and Registered Mobile Number.
+    </div>
+
+    <div class="section-spacing">
+        Further, I hereby declare that my above-mentioned current address as stated in this Customer Loan
+        Agreement is true and correct, in the event such an address differs from the address updated as per
+        Aadhaar fetched using e-KYC authentication facility provided by the Unique Identification Authority of
+        India (UIDAI).
+    </div>
+
+    <div class="section-spacing">
+        b) PURPOSE: I hereby authorize and provide my consent to CFL for the following informed purposes:
+    </div>
+
+    <div class="section-spacing">
+        i. Above mentioned information shall be used for KYC and periodic KYC updating process as per the PML
+        Act, 2002 and rules thereunder and RBI guidelines, or for establishing my identity, carrying out my
+        identification, e-KYC, or OKYC, or Yes/No Authentication, demographic or other
+        authentication/verification/ identification as may be permitted as per applicable law, for all accounts,
+        facilities, services and relationships of/through the CFL, existing and future.
+    </div>
+
+    <div class="section-spacing">
+        ii. Collecting, sharing, storing, preserving Information, maintaining records and using the Information
+        and authentication/verification/ identification records:
+    </div>
+
+    <div class="section-spacing">(a) for the informed purposes above,</div>
+
+    <div class="section-spacing">(b) as well as for regulatory and legal reporting and filings and/or</div>
+
+    <div class="section-spacing">(c) where required under applicable law;</div>
+
+    <div class="section-spacing">
+        iii. producing records and logs of the consent, Information or of authentication, identification,
+        verification etc. for evidentiary purposes including before a court of law, any authority or in
+        arbitration.
+    </div>
+
+    <div class="section-spacing">
+        c) I further understand that Aadhaar number and core biometrics will not be stored/ shared except as per
+        laws/regulations and for CIDR/UIDAI submission.
+    </div>
+
+    <div class="section-spacing">
+        d) In case of OKYC, I shall share the Share Code or confirm on the auto populated shared code, as the
+        case may be for successful XML file download and upload as contemplated under applicable law to complete
+        my offline KYC process.
+    </div>
+
+    <div class="section-spacing">
+        <div class="bold">
+            8. CONSENT DATA AND INFORMATION SHARING FROM FOR DIGILOCKER PROVIDED BY MeIT (Ministry of
+            Electronics and Information Technology)
+        </div>
+    </div>
+
+    <div class="section-spacing">
+        I authorise and give my consent to the CFL to obtain, share and store Certified Copy of Officially Valid
+        Documents (OVD) or equivalent e-documents of OVD including documents issued through secured cloud-based
+        Digi locker platform of MeIT for the purpose of availing Financial Products from CFL.
+    </div>
+
+    <div class="section-spacing">
+        <div class="bold">9. CONSENT FOR ADDITIONAL DETAILS</div>
+    </div>
+
+    <div class="section-spacing">
+        I hereby authorise and give my consent to the CFL to
+        verify/check/obtain/download/upload/update/retrieve/receive my following details:
+    </div>
+
+    <div class="section-spacing">i. profession or</div>
+
+    <div class="section-spacing">ii. income or</div>
+
+    <div class="section-spacing">iii. financial details or</div>
+
+    <div class="section-spacing">iv. location or</div>
+
+    <div class="section-spacing">v. IP address or</div>
+
+    <div class="section-spacing">vi. photographs of residence/business premises or</div>
+
+    <div class="section-spacing">vii. alternative mobile phone number or</div>
+
+    <div class="section-spacing">viii. alternate residence address or</div>
+
+    <div class="section-spacing">
+        ix. any other additional information as deemed fit by CFL through details shared by me for this
+        Application Form and Loan Agreement.
+    </div>
+
+    <div class="section-spacing">
+        <div class="bold">10. eMandate Registration with eSignature</div>
+    </div>
+
+    <div class="section-spacing">
+        In the event I opt for mandate registration with eSignature through biometric authentication/Aadhaar/OTP, I
+        agree/authorize CFL as under:
+    </div>
+
+    <div class="section-spacing">i. That CFL and its Assigns to</div>
+
+    <div class="section-spacing">
+        (a) use my Aadhaar/Virtual ID (as applicable) for the purpose of digitally signing e-Mandate and
+    </div>
+
+    <div class="section-spacing">
+        (b) authenticate my Aadhaar/Virtual ID through OTP or Biometric for authenticating my identity through
+        Aadhaar Authentication system of UIDAI for obtaining my e-KYC through Aadhaar based e-KYC services of
+        UIDAI, for the purposes of digitally signing eMandate.
+    </div>
+
+    <div class="section-spacing">
+        ii. That CFL will be sharing certain details such as Mandate Start Date, Mandate End Date, Monthly
+        Amount to be debited, my personal details etc., to my bank either on its own or through service provider
+        for registration of mandate and I authorize CFL to share said details.
+    </div>
+
+    <div class="section-spacing">
+        iii. To debit my account basis the payment instructions as confirmed by me herein and agree that such
+        debit shall not be disputed by me for any reason, whatsoever.
+    </div>
+
+    <div class="section-spacing">
+        iv. That during the tenure of my relationship with CFL, the mandate shall NOT be cancelled by me,
+        excepting when the relationship is terminated by me.
+    </div>
+
+    <div class="section-spacing">
+        <div class="bold">11. I also authorize CFL:</div>
+    </div>
+
+    <div class="section-spacing">
+        a) To use, verify, exchange, share or part with all information and details as provided by me to CFL's
+        group companies for statutory/regulatory requirement, if any or to CFL's business partners/permitted
+        assigns/agents/ service provider/representatives/empaneled merchants (collectively referred to as
+        "Assigns") and any third party including but not limited to, banks, financial institutions, credit
+        bureaus, telecommunication companies, statutory bodies, empaneled merchants, Central KYC Registry,
+        Protean eGov Technologies Reserve Bank of India, GST Portal, CIBIL/CRISIL/any credit rating
+        agency/credit information company (CIC), Information Utility, NSDL e-Governance Infrastructure Limited
+        (NSDL)/UTI Infrastructure Technology and Services Limited (UTIITSL), UIDAI for purposes such as,
+        including but not limited to customer verification and due diligence, personalization of products or
+        services, credit rating, analysis, marketing or promotion of CFL services or related products or for
+        enforcement of my obligations and I shall not hold CFL/its Assigns liable for the use/storage/sharing of
+        the data and information's as stated above. I am aware and I agree that my Aadhaar details such Aadhaar
+        Number, registered mobile Number, and registered email ID will be masked by CFL before sharing to its
+        permitted Assigns and/or any third party as per laws/regulations
+    </div>
+
+    <div class="section-spacing">
+        b) To seek/obtain any other information, generate periodic reports relating to me either by itself
+        and/or from any third party.
+    </div>
+
+    <div class="section-spacing">
+        c) To procure/avail my CIBIL report and provide it to me by deducting applicable charges for the same.
+    </div>
+
+    <div class="section-spacing">
+        <div>
+            12. I hereby declare that all the information voluntarily furnished by me is true, correct and
+            complete. I will not hold CFL or any of its officials responsible in case of any incorrect
+            information provided by me.
+        </div>
+    </div>
+
+    <div class="section-spacing">
+        <div>
+            13. That no insolvency proceedings or suits for recovery of outstanding dues, monies or property
+            (ies) and/or any criminal proceedings have been initiated and/or are pending against me.
+        </div>
+    </div>
+
+    <div class="section-spacing">
+        <div>
+            14. That CFL has the absolute discretion, to accept or reject this loan application, as it may be
+            deemed fit by CFL at any time, either before or after verification.
+        </div>
+    </div>
+
+    <div class="section-spacing">
+        <div>
+            15. I hereby expressly consent for taking my photo/video along with the invoice and product
+            evidencing the conduct of loan transaction by me and that such photo/video is unconditionally agreed
+            to be stored and preserved for a period of at least five (5) years or otherwise from the date of
+            closure of my account and/or as the law/regulations may so mandate, whichever is higher.
+        </div>
+    </div>
+
+    <div class="section-spacing">
+        <div>
+            16.That this Consumer Loan Agreement, its contents and information/details provided by me, from time
+            to time, as part of this application, may be submitted by CFL:
+        </div>
+    </div>
+
+    <div class="section-spacing">
+        a. Any service provider/third party/ legal entity with whom CFL may have business relationship and/or in
+        reference to rendering services in connection with the product(s) availed by me
+    </div>
+
+    <div class="section-spacing">
+        b. To any Regulator, Court, Law enforcement agency, Quasi-Judicial authority etc. on a need basis.
+    </div>
+
+    <div class="section-spacing">
+        <div>
+            17. That all the particulars, information and details provided in this Customer Loan Agreement and
+            the documents submitted by me are true, correct, complete and up-to-date in all respects and that I
+            have not withheld any material information. I shall keep CFL updated of any change in the
+            information provided by me, specifically KYC details, Bank details, etc. and in case any of the
+            above information is found to be false or untrue or misleading or misrepresenting.
+        </div>
+    </div>
+
+    <div class="section-spacing">
+        I am aware that I shall be held liable for the same and I will not hold CFL liable for any consequences
+        that may arise owing to any delay/lapse on my part.
+    </div>
+
+    <div class="section-spacing">
+        <div class="bold">18. Borrower's Undertaking for Repayment through e-NACH, UPI and Cheques</div>
+    </div>
+
+    <div class="section-spacing">
+        • I undertake to honor the said eNACH/UPI/cheque(s) upon their presentation for payment.
+    </div>
+
+    <div class="section-spacing">
+        • I undertake not to intimate the bankers to stop the payment on any of the eNACH/UPI/cheque(s) given to
+        the Lender.
+    </div>
+
+    <div class="section-spacing">
+        • I undertake not to close the bank account(s) registered with the Company without obtaining a prior
+        permission in writing from the Lender.
+    </div>
+
+    <div class="section-spacing">
+        • I undertake to inform the Lender in writing in case of change in the bank account.
+    </div>
+
+    <div class="section-spacing">
+        • I undertake not to give any notice requesting the Lender to stop the presentation of any of the said
+        ENACH/UPI/cheque(s) on their respective due date.
+    </div>
+
+    <div class="section-spacing">
+        • I authorize you to take the legal action u/s 138 of Negotiable Instrument Act in case the
+        aforementioned Undated Cheques issued in your favor towards repayment of Personal Loan / Consumer Loan /
+        Demand Promissory Note borrowed from your Company are not honored.
+    </div>
+
+    <div class="section-spacing">
+        • I authorize you to take the legal action u/s 25 of Payment Systems and Settlement Act, 2007 Act in
+        case any of the e-NACHs presented towards repayment of Personal Loan / Consumer Loan from your Company
+        are not honored / failed by me/us.
+    </div>
+
+    <div class="section-spacing">
+        • I confirm that the Undated cheques if given by me are issued from the Live/Operative Accounts.
+    </div>
+
+    <div class="section-spacing">
+        <div class="bold">19. CFL Customer Care Contact details:</div>
+    </div>
+
+    <div class="section-spacing">
+        For any queries or assistance, kindly visit our website at https://www.comfortfincap.com, write to us at
+        care@comfortfincap.com, or call us at 022-68948500.
+    </div>
+
+    <div class="section-spacing">
+        <div class="bold">List of Officially Valid Documents (OVDs):</div>
+        Passport, PAN, Driving License, Aadhaar (First Eight Digits of Aadhaar number to be redacted/masked),
+        Voter's Identity Card issued by the Election Commission of India, Job Card issued by NREGA duly signed by an
+        officer of the State Government, Letter issued by the National Population Register containing details of
+        name and address
+    </div>
+
+    <div class="section-spacing">
+        <div class="bold">List of Deemed to be OVDs (DOVDs):</div>
+        Utility bill which is not more than two months old of any service provider (electricity, telephone,
+        post-paid mobile phone, piped gas, water bill), Property or Municipal tax receipt, Pension or family
+        pension payment orders (PPOs) issued to retired employees by
+    </div>
+
+    <div class="section-spacing">
+        Government Departments or Public Sector Undertakings, if they contain the address, Letter of allotment
+        of accommodation from employer issued by State Government or Central Government Departments, statutory
+        or regulatory bodies, public sector undertakings, scheduled commercial banks, financial institutions and
+        listed companies and leave and licence agreements with such employers allotting official accommodation.
+    </div>
+    </div>
+</div>
+
+<!-- Page 19: Promissory Note Continued -->
+<div class="page">
+    <div class="content">
+    <br/>
+    <div class="center main-title bold">PROMISSORY NOTE</div>
+
+   <div class="section-spacing">
+    Date: <span th:text="${currentDateSnapshot.date}"></span>
+   </div>
+
+    <div class="section-spacing">
+    Rs <span th:text="${sanctionedAmount.value}"></span>
+        </div>
+
+    <div class="section-spacing">
+        ON DEMAND I/WE
+        <span th:text="${primaryApplicantProfile.fullName}">_________________</span>
+        promise to pay Comfort Fincap Limited having its corporate office at A-301, Hetal Arch, opp Natraj
+        Market, S V Road, Malad west, Mumbai 400064, a sum of Rupees <span th:text="${sanctionedAmount.value}">___________</span> (loan amount) towards the entire loan
+        value received from Comfort Fincap Limited together with interest and any other outstanding amounts
+        payable as per the terms of the loan agreement dated <span th:text="${currentDateSnapshot.date}">___________</span>.
+    </div>
+
+    <!--<div class="section-spacing">-->
+    <!--Geolocation-->
+    <!--</div>-->
+
+    <!--<div class="section-spacing">-->
+    <!--    Latitude: 26.156830 Longitude: 75.782213-->
+    <!--</div>-->
+
+    <div class="section-spacing">
+
+        <th:block th:with="safePhoto=${primaryApplicantProfile != null and primaryApplicantProfile.photo != null
+            ? #strings.replace(primaryApplicantProfile.photo, '\\s+', '')
+            : ''}">
+
+            <table style="width:100%; border:none;">
+                <tr>
+                    <td style="text-align:center;">
+
+                        <div style="
+                                width:200px;
+                                height:200px;
+                                border:1.5px solid #000;
+                                margin:0 auto;
+                                overflow:hidden;
+                                display:flex;
+                                align-items:center;
+                                justify-content:center;
+                            ">
+
+                            <!-- Case 1: photo already has data:image prefix -->
+                            <img th:if="${!#strings.isEmpty(safePhoto) and #strings.startsWith(safePhoto, 'data:image')}"
+                                 th:src="${safePhoto}"
+                                 style="width:200px; height:200px; object-fit:contain; display:block;"
+                                 alt="Customer Photo" />
+
+                            <!-- Case 2: raw Base64, add prefix -->
+                            <img th:if="${!#strings.isEmpty(safePhoto) and !#strings.startsWith(safePhoto, 'data:image')}"
+                                 th:src="'data:image/jpeg;base64,' + ${safePhoto}"
+                                 style="width:200px; height:200px; object-fit:contain; display:block;"
+                                 alt="Customer Photo" />
+
+                            <!-- Case 3: no photo -->
+                            <span th:if="${#strings.isEmpty(safePhoto)}">
+                                    Paste Photo Here
+                                </span>
+
+                        </div>
+
+                        <div style="margin-top:10px; font-weight:600;">
+                            Customer Photograph
+                        </div>
+
+                    </td>
+                </tr>
+            </table>
+
+        </th:block>
+
+    </div>
+
+    <div class="section-spacing">
+        • "Additional cess/ taxes, if any, will be applicable on all charges as per the respective State Laws as
+        may be applicable from time to time."
+    </div>
+
+    <div class="section-spacing">
+        • The aforementioned charges/fees may be modified by Comfort Fincap Ltd from time to time upon prior
+        intimation via Acceptable Means of Communication from Comfort Fincap Limited in this regard.
+    </div>
+
+    <div class="section-spacing">
+        <div class="bold">Note:</div>
+        <br/>
+        Loan Application will be processed Instantly on the date of receipt of all the documents to the
+        satisfaction of CFL
+    </div>
+
+    <ul class="checkbox-list">
+        <li class="section-spacing">
+            I hereby expressly authorise Comfort Fincap Limited and their representatives to send promotional
+            communications about all products/services rendered by Comfort Fincap Limited through phone calls / SMSs
+            / emails / WhatsApp or any other electronic modes.
+        </li>
+    </ul>
+    </div>
+</div>
+
+<!-- Page 20: Final Acceptance and Signatures Continued -->
+<div class="page page-last">
+    <div class="content">
+    <ul class="checkbox-list">
+        <li class="section-spacing">
+            I have read, understood, and hereby accept the Privacy policy & Terms of Use.
+        </li>
+
+        <li class="section-spacing">
+            In connection with the product(s) opted by me, I hereby permit CFL to share my information with the
+            relevant Group Company(ies) / Service Provider for fulfilment of my request.
+        </li>
+
+        <li class="section-spacing">
+            By clicking on "I Agree" below, button and/or by entering the Aadhaar OTP sent by CFL
+            and/or by providing physical signature, I hereby apply for Loan from Comfort Fincap Limited and confirm
+            that all the particulars, information and details mentioned in this Application Form are true and
+            correct
+        </li>
+
+        <li class="section-spacing">
+            I hereby declare I have carried out my E – KYC and I am providing Current Address which is different
+            from the Address details available in the Identity Information under the Central Identities Data
+            Repository maintained by the Unique Identification Authority of India (UIDAI).
+        </li>
+    </ul>
+
+    <div class="section-spacing">
+        IN WITNESS WHEREOF the Parties have executed this Agreement on the day and the year as mentioned in the
+        First Schedule
+    </div>
+
+    <div class="section-spacing">[Applicable to Individual Borrower(s)]</div>
+
+    <div class="section-spacing">SIGNED AND DELIVERED</div>
+
+    <div class="section-spacing">by the within named Borrower(s) and Co-Borrower(s) (Borrower)</div>
+
+    <table class="signature-table">
+        <tr>
+            <td class="signature-cell" th:text="${primaryApplicantProfile.fullName}"></td>
+            <td class="signature-cell"></td>
+        </tr>
+    </table>
+    <br />
+    <br />
+    </div>
+    <div class="footer-page">
+        <div class="footer">
+            <div class="company-name">COMFORT FINCAP LIMITED</div>
+            <div class="company-details">
+                <strong>CIN:</strong> L65923WB1982PLC035441
+            </div>
+            <div class="company-details">
+                <strong>REGISTERED OFFICE:</strong> 22, CAMAC STREET, BLOCK 'B' GROUND FLOOR, BEHIND
+                PANTALOONS, KOLKATA, WEST BENGAL - 700016
+            </div>
+            <div class="company-details">
+                <strong>CORPORATE OFFICE:</strong> A-301, HETAL ARCH, S.V. ROAD, OPP. NATRAJ MARKET,
+                MALAD (WEST), MUMBAI- 400064
+            </div>
+            <div class="contact-info">
+                <strong>PHONE NO.:</strong> 022-6894-8500 | <strong>EMAIL:</strong>
+                <a href="mailto:care@comfortfincap.com" class="link">care@comfortfincap.com</a><br />
+                <strong>WEBSITE:</strong>
+                <a href="https://www.comfortfincap.com" class="link">https://www.comfortfincap.com</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
