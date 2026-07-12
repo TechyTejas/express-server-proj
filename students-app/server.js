@@ -13,6 +13,7 @@ const studentDetailsRoutes = require('./routes/studentDetailsRoutes');
 
 //models
 const StudentDetails = require('./models/student-details');
+require('./models');
 
 app.get('/', (req, res) => {
   res.send('Hello World');
@@ -23,6 +24,8 @@ app.use('/students', studentRoutes);
 app.use('/users', busRoutes);
 app.use('/student-details', studentDetailsRoutes);
 
+// sequelize.sync() synchronizes Sequelize models with the database. It creates tables if they don't exist.
+// force: false means "create missing tables but never drop existing ones."
 db.sync({force: false}).then(()=>{
   app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
