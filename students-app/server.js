@@ -10,6 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 const studentRoutes = require('./routes/studentRoutes');
 const busRoutes = require('./routes/busRoutes');
 const studentDetailsRoutes = require('./routes/studentDetailsRoutes');
+const departmentRoutes = require('./routes/departmentRoutes');
 
 //models
 const StudentDetails = require('./models/student-details');
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
 app.use('/students', studentRoutes);
 app.use('/users', busRoutes);
 app.use('/student-details', studentDetailsRoutes);
+app.use('/department', departmentRoutes);
 
 // sequelize.sync() synchronizes Sequelize models with the database. It creates tables if they don't exist.
 // force: false means "create missing tables but never drop existing ones."

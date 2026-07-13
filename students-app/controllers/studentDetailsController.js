@@ -3,11 +3,12 @@ const studentDetails = require('../models/student-details');
 const identityCard = require('../models/identity-card');
 const addStudent = async (req, res) => {
     try {
-        const {name, email, age} = req.body;
+        const {name, email, age, departmentId} = req.body;
         const student = await studentDetails.create({
-            name : name, 
-            email : email, 
-            age : age, 
+            name : name,
+            email : email,
+            age : age,
+            departmentId : departmentId,
         });
         console.log(`Student is created with name ${name}`)
         res.status(200).send(`Student ${name} added successfully`);
